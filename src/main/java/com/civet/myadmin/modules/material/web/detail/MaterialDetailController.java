@@ -6,6 +6,8 @@ package com.civet.myadmin.modules.material.web.detail;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.civet.myadmin.modules.material.entity.type.MaterialType;
+import com.civet.myadmin.modules.material.service.type.MaterialTypeService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,9 @@ import com.civet.myadmin.common.utils.StringUtils;
 import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 import com.civet.myadmin.modules.material.service.detail.MaterialDetailService;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * 物料类型Controller
  * @author likai
@@ -33,7 +38,10 @@ public class MaterialDetailController extends BaseController {
 
 	@Autowired
 	private MaterialDetailService materialDetailService;
-	
+
+	@Autowired
+	private MaterialTypeService materialTypeService;
+
 	@RequiresPermissions("material:detail:materialDetail:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(MaterialDetail materialDetail, HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -48,6 +56,13 @@ public class MaterialDetailController extends BaseController {
 	    if (materialDetail.getId() != null){
             materialDetail = materialDetailService.get(materialDetail.getId());
         }
+
+		List<MaterialType> materialTypes = materialTypeService.findList(null);
+		HashMap<String,String> typeMap = new HashMap<>();
+		for(MaterialType materialType:materialTypes){
+			typeMap.put(materialType.getCode(),materialType.getDetail());
+		}
+		model.addAttribute("materialTypeMap", typeMap);
 		model.addAttribute("materialDetail", materialDetail);
 		return "modules/material/detail/materialDetailForm";
 	}

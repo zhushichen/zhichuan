@@ -20,7 +20,16 @@
 		<include refid="materialTypeJoins"/>
 		WHERE a.id = #{id}
 	</select>
-	
+
+	<select id="getFromCode" resultType="MaterialType">
+		SELECT
+		<include refid="materialTypeColumns"/>
+		FROM material_type a
+		<include refid="materialTypeJoins"/>
+		WHERE a.code = #{code}
+	</select>
+
+
 	<select id="findList" resultType="MaterialType">
 		SELECT 
 			<include refid="materialTypeColumns"/>

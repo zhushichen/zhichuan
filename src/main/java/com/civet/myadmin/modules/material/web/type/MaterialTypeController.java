@@ -58,6 +58,13 @@ public class MaterialTypeController extends BaseController {
 		if (!beanValidator(model, materialType)){
 			return form(materialType, model);
 		}
+
+		String code = materialType.getCode();
+		MaterialType m = materialTypeService.getFromCode(code);
+		if(m != null){
+			addMessage(redirectAttributes, "保存失败!!!该物料类型已存在");
+			return "redirect:"+Global.getAdminPath()+"/material/type/materialType/?repage";
+		}
 		materialTypeService.save(materialType);
 		addMessage(redirectAttributes, "保存物料类型成功");
 		return "redirect:"+Global.getAdminPath()+"/material/type/materialType/?repage";

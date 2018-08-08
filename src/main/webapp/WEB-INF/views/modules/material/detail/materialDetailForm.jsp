@@ -49,7 +49,10 @@
 		<div class="control-group">
 			<label class="control-label">物料类型code：</label>
 			<div class="controls">
-				<form:input path="materialTypeCode" htmlEscape="false" maxlength="3" class="input-xlarge "/>
+				<form:select path="materialTypeCode" class="input-xlarge required">
+					<form:option value="" label="---请选择物料类型---"/>
+					<form:options items="${materialTypeMap}"  htmlEscape="false" />
+				</form:select>
 			</div>
 		</div>
 		<div class="control-group">
@@ -67,7 +70,8 @@
 		<div class="control-group">
 			<label class="control-label">图片路径：</label>
 			<div class="controls">
-				<form:input path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+				<form:hidden path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+				<sys:ckfinder input="picturePath" type="thumb" uploadPath="/material/detail"/>
 			</div>
 		</div>
 		<div class="form-actions">

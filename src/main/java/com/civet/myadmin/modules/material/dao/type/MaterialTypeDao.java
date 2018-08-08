@@ -14,5 +14,6 @@ import com.civet.myadmin.modules.material.entity.type.MaterialType;
  */
 @MyBatisDao
 public interface MaterialTypeDao extends CrudDao<MaterialType> {
-	
+    public MaterialType getFromCode(String code);
+
 }

@@ -25,7 +25,11 @@ public class MaterialTypeService extends CrudService<MaterialTypeDao, MaterialTy
 	public MaterialType get(Integer id) {
 		return super.get(id);
 	}
-	
+
+	public MaterialType getFromCode(String code){
+		return dao.getFromCode(code);
+	}
+
 	public List<MaterialType> findList(MaterialType materialType) {
 		return super.findList(materialType);
 	}
