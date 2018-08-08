@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.civet.myadmin.modules.material.dao.detail.MaterialDetailDao">
+    
+	<sql id="materialDetailColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.road AS "road",
+		a.material_type_code AS "materialTypeCode",
+		a.longitude AS "longitude",
+		a.latitude AS "latitude",
+		a.picture_path AS "picturePath"
+	</sql>
+	
+	<sql id="materialDetailJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			    ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+                ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO material_detail(
+			id,
+			name,
+			road,
+			material_type_code,
+			longitude,
+			latitude,
+			picture_path
+		) VALUES (
+			#{id},
+			#{name},
+			#{road},
+			#{materialTypeCode},
+			#{longitude},
+			#{latitude},
+			#{picturePath}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE material_detail
+		<set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="road != null">
+                road = #{road},
+            </if>
+            <if test="materialTypeCode != null">
+                material_type_code = #{materialTypeCode},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude},
+            </if>
+            <if test="picturePath != null">
+                picture_path = #{picturePath},
+            </if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM material_detail
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

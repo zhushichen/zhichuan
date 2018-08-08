@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.civet.myadmin.modules.material.dao.type.MaterialTypeDao">
+    
+	<sql id="materialTypeColumns">
+		a.id AS "id",
+		a.code AS "code",
+		a.detail AS "detail",
+		a.origin AS "origin",
+		a.remark AS "remark"
+	</sql>
+	
+	<sql id="materialTypeJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialType">
+		SELECT 
+			<include refid="materialTypeColumns"/>
+		FROM material_type a
+		<include refid="materialTypeJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialType">
+		SELECT 
+			<include refid="materialTypeColumns"/>
+		FROM material_type a
+		<include refid="materialTypeJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="code != null and code != ''">
+				AND a.code = #{code}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			    ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialType">
+		SELECT 
+			<include refid="materialTypeColumns"/>
+		FROM material_type a
+		<include refid="materialTypeJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+                ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO material_type(
+			id,
+			code,
+			detail,
+			origin,
+			remark
+		) VALUES (
+			#{id},
+			#{code},
+			#{detail},
+			#{origin},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE material_type
+		<set>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="detail != null">
+                detail = #{detail},
+            </if>
+            <if test="origin != null">
+                origin = #{origin},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM material_type
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

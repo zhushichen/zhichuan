@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.civet.myadmin.modules.material.dao.type.MaterialDetailDao">
+    
+	<sql id="materialDetailColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.road AS "road",
+		a.position AS "position",
+		a.material_code AS "materialCode"
+	</sql>
+	
+	<sql id="materialDetailJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name = #{name}
+			</if>
+			<if test="road != null and road != ''">
+				AND a.road = #{road}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			    ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialDetail">
+		SELECT 
+			<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+                ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO material_detail(
+			id,
+			name,
+			road,
+			position,
+			material_code
+		) VALUES (
+			#{id},
+			#{name},
+			#{road},
+			#{position},
+			#{materialCode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE material_detail
+		<set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="road != null">
+                road = #{road},
+            </if>
+            <if test="position != null">
+                position = #{position},
+            </if>
+            <if test="materialCode != null">
+                material_code = #{materialCode},
+            </if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM material_detail
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

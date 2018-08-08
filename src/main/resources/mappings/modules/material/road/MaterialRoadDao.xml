@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.civet.myadmin.modules.material.dao.road.MaterialRoadDao">
+    
+	<sql id="materialRoadColumns">
+		a.id AS "id",
+		a.name AS "name",
+		a.remark AS "remark"
+	</sql>
+	
+	<sql id="materialRoadJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialRoad">
+		SELECT 
+			<include refid="materialRoadColumns"/>
+		FROM material_road a
+		<include refid="materialRoadJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialRoad">
+		SELECT 
+			<include refid="materialRoadColumns"/>
+		FROM material_road a
+		<include refid="materialRoadJoins"/>
+		<where>
+			
+			<if test="id != null and id != ''">
+				AND a.id = #{id}
+			</if>
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			    ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialRoad">
+		SELECT 
+			<include refid="materialRoadColumns"/>
+		FROM material_road a
+		<include refid="materialRoadJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+                ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO material_road(
+			id,
+			name,
+			remark
+		) VALUES (
+			#{id},
+			#{name},
+			#{remark}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE material_road
+		<set>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="remark != null">
+                remark = #{remark},
+            </if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM material_road
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
