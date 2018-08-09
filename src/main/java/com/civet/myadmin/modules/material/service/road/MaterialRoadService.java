@@ -5,6 +5,8 @@ package com.civet.myadmin.modules.material.service.road;
 
 import java.util.List;
 
+import com.civet.myadmin.modules.material.web.restful.req.RoadListReq;
+import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +45,17 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
 	public void delete(MaterialRoad materialRoad) {
 		super.delete(materialRoad);
 	}
-	
+
+    public RoadListRes roadList(RoadListReq roadListReq) {
+		int pageNo = roadListReq.getPageNo();
+		int pageSize = roadListReq.getPageSize();
+
+		List<MaterialRoad> list = findList(new MaterialRoad());
+//		Page<MaterialRoad> page = findPage(new Page<MaterialRoad>(pageNo, pageSize), new MaterialRoad());
+		RoadListRes roadListRes = new RoadListRes();
+		roadListRes.setRetCode(0);
+		roadListRes.setRetMsg("");
+		roadListRes.setRetObj(list);
+		return roadListRes;
+    }
 }

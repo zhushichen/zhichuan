@@ -43,5 +43,8 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
 	public void delete(MaterialDetail materialDetail) {
 		super.delete(materialDetail);
 	}
-	
+
+    public int getNextId() {
+		return dao.getNextId() + 1;
+    }
 }

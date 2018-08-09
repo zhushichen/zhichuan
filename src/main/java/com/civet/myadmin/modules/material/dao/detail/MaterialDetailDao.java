@@ -14,5 +14,6 @@ import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
  */
 @MyBatisDao
 public interface MaterialDetailDao extends CrudDao<MaterialDetail> {
-	
+
+    int getNextId();
 }

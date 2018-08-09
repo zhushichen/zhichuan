@@ -22,6 +22,14 @@
 		<include refid="materialDetailJoins"/>
 		WHERE a.id = #{id}
 	</select>
+
+	<select id="getNextId" resultType="int">
+		SELECT
+		max(id)
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+
+	</select>
 	
 	<select id="findList" resultType="MaterialDetail">
 		SELECT 

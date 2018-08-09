@@ -36,6 +36,7 @@ import java.util.List;
 @RequestMapping(value = "${adminPath}/material/detail/materialDetail")
 public class MaterialDetailController extends BaseController {
 
+    private final String NAME_PREFIX = "H";
 	@Autowired
 	private MaterialDetailService materialDetailService;
 
@@ -73,6 +74,9 @@ public class MaterialDetailController extends BaseController {
 		if (!beanValidator(model, materialDetail)){
 			return form(materialDetail, model);
 		}
+
+		int id = materialDetailService.getNextId();
+		materialDetail.setName(NAME_PREFIX + id);
 		materialDetailService.save(materialDetail);
 		addMessage(redirectAttributes, "保存物料信息成功");
 		return "redirect:"+Global.getAdminPath()+"/material/detail/materialDetail/?repage";
