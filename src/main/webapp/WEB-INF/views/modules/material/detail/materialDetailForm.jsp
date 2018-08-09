@@ -42,7 +42,10 @@
 		<div class="control-group">
 			<label class="control-label">线路标识：</label>
 			<div class="controls">
-				<form:input path="road" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:select path="road" class="input-xlarge required">
+					<form:option value="" label="---请选择路线---"/>
+					<form:options items="${materialRoadMap}"  htmlEscape="false" />
+				</form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>

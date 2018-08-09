@@ -1,15 +1,23 @@
 package com.civet.myadmin.modules.material.web.restful.res;
 
 public class BaseRes {
-    protected int retCode;
-    protected String retMsg;
-    protected Object retObj;
+    private Integer retCode;
+    private String retMsg;
 
-    public int getRetCode() {
+    public BaseRes() {
+
+    }
+
+    public BaseRes(Integer retCode, String retMsg) {
+        this.retCode = retCode;
+        this.retMsg = retMsg;
+    }
+
+    public Integer getRetCode() {
         return retCode;
     }
 
-    public void setRetCode(int retCode) {
+    public void setRetCode(Integer retCode) {
         this.retCode = retCode;
     }
 
@@ -19,13 +27,5 @@ public class BaseRes {
 
     public void setRetMsg(String retMsg) {
         this.retMsg = retMsg;
-    }
-
-    public Object getRetObj() {
-        return retObj;
-    }
-
-    public void setRetObj(Object retObj) {
-        this.retObj = retObj;
     }
 }

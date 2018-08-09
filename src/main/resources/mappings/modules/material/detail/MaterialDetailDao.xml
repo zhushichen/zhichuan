@@ -73,7 +73,16 @@
 			</otherwise>
 		</choose>
 	</select>
-	
+
+	<select id="CoordinatesPerRoad" resultType="MaterialDetail">
+		SELECT
+		<include refid="materialDetailColumns"/>
+		FROM material_detail a
+		<include refid="materialDetailJoins"/>
+		WHERE a.road = #{roadId}
+
+	</select>
+
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO material_detail(
 			id,

@@ -1,10 +1,12 @@
 package com.civet.myadmin.modules.material.web.restful.req;
 
 public class BaseReq {
-    protected String msgCode;
-    protected String token;
-    protected String ts;
-    protected String object;
+    private String msgCode;
+    private String token;
+    private Long ts;
+
+    public BaseReq() {
+    }
 
     public String getMsgCode() {
         return msgCode;
@@ -22,19 +24,12 @@ public class BaseReq {
         this.token = token;
     }
 
-    public String getTs() {
+    public Long getTs() {
         return ts;
     }
 
-    public void setTs(String ts) {
+    public void setTs(Long ts) {
         this.ts = ts;
     }
 
-    public String getObject() {
-        return object;
-    }
-
-    public void setObject(String object) {
-        this.object = object;
-    }
 }

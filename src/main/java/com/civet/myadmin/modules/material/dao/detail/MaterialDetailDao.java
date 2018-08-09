@@ -7,6 +7,8 @@ import com.civet.myadmin.common.persistence.CrudDao;
 import com.civet.myadmin.common.persistence.annotation.MyBatisDao;
 import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 
+import java.util.List;
+
 /**
  * 物料类型DAO接口
  * @author likai
@@ -16,4 +18,6 @@ import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 public interface MaterialDetailDao extends CrudDao<MaterialDetail> {
 
     int getNextId();
+
+    List<MaterialDetail> CoordinatesPerRoad(int roadId);
 }

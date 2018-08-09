@@ -46,16 +46,13 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
 		super.delete(materialRoad);
 	}
 
-    public RoadListRes roadList(RoadListReq roadListReq) {
-		int pageNo = roadListReq.getPageNo();
-		int pageSize = roadListReq.getPageSize();
+    public RoadListRes roadList() {
 
 		List<MaterialRoad> list = findList(new MaterialRoad());
-//		Page<MaterialRoad> page = findPage(new Page<MaterialRoad>(pageNo, pageSize), new MaterialRoad());
 		RoadListRes roadListRes = new RoadListRes();
 		roadListRes.setRetCode(0);
 		roadListRes.setRetMsg("");
-		roadListRes.setRetObj(list);
+		roadListRes.setRoad(list);
 		return roadListRes;
     }
 }

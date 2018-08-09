@@ -5,6 +5,13 @@ package com.civet.myadmin.modules.material.service.detail;
 
 import java.util.List;
 
+import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
+import com.civet.myadmin.modules.material.web.restful.req.CoordinateReq;
+import com.civet.myadmin.modules.material.web.restful.req.CoordinatesPerRoadReq;
+import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
+import com.civet.myadmin.modules.material.web.restful.res.CoordinateRes;
+import com.civet.myadmin.modules.material.web.restful.res.CoordinatesPerRoadRes;
+import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,5 +53,33 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
 
     public int getNextId() {
 		return dao.getNextId() + 1;
+    }
+
+    public BaseRes CoordinatesPerRoad(int roadId) {
+        List<MaterialDetail> list = dao.CoordinatesPerRoad(roadId);
+        CoordinatesPerRoadRes coordinatesPerRoadRes = new CoordinatesPerRoadRes();
+        coordinatesPerRoadRes.setList(list);
+        coordinatesPerRoadRes.setRetCode(0);
+        return coordinatesPerRoadRes;
+    }
+
+    public BaseRes saveCoordinate(CoordinateReq coordinateReq) {
+	    MaterialDetail materialDetail = coordinateReq.getMaterialDetail();
+	    if(materialDetail.getId() != null){
+            /**
+             * 更新操作
+             */
+            this.save(materialDetail);
+        }else{
+            /**
+             * 新增操作
+             */
+            materialDetail.setName("H" + getNextId());
+            this.save(materialDetail);
+        }
+        CoordinateRes coordinateRes = new CoordinateRes();
+	    coordinateRes.setRetCode(0);
+	    coordinateRes.setMaterialDetail(materialDetail);
+	    return coordinateRes;
     }
 }
