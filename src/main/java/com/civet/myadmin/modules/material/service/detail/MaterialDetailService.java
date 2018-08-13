@@ -60,8 +60,9 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
     public BaseRes CoordinatesPerRoad(int roadId) {
         List<MaterialDetail> list = dao.CoordinatesPerRoad(roadId);
         CoordinatesPerRoadRes coordinatesPerRoadRes = new CoordinatesPerRoadRes();
-        coordinatesPerRoadRes.setList(list);
         coordinatesPerRoadRes.setRetCode(0);
+        coordinatesPerRoadRes.setRetMsg("");
+        coordinatesPerRoadRes.setList(list);
         return coordinatesPerRoadRes;
     }
 
@@ -82,6 +83,7 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
         }
         CoordinateRes coordinateRes = new CoordinateRes();
 	    coordinateRes.setRetCode(0);
+	    coordinateRes.setRetMsg("");
 	    coordinateRes.setMaterialDetail(materialDetail);
 	    return coordinateRes;
     }

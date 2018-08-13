@@ -1,7 +1,5 @@
 package com.civet.myadmin.modules.material.web.restful.req;
 
-import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
-
 public class LoginReq extends BaseReq{
     private String name;
     private String password;

@@ -6,7 +6,7 @@ public class CoordinateReq extends BaseReq{
     private MaterialDetail materialDetail;
 
     public CoordinateReq() {
-        super.setMsgCode("Coordinate");
+        super.setMsgCode("CoordinatesSave");
     }
 
     public MaterialDetail getMaterialDetail() {

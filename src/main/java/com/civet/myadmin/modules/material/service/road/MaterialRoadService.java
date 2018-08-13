@@ -5,7 +5,10 @@ package com.civet.myadmin.modules.material.service.road;
 
 import java.util.List;
 
+import com.civet.myadmin.modules.material.web.restful.req.RoadAddReq;
 import com.civet.myadmin.modules.material.web.restful.req.RoadListReq;
+import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
+import com.civet.myadmin.modules.material.web.restful.res.RoadAddRes;
 import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,5 +57,16 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
 		roadListRes.setRetMsg("");
 		roadListRes.setRoad(list);
 		return roadListRes;
+    }
+
+    @Transactional(readOnly = false)
+    public BaseRes roadSave(RoadAddReq roadAddReq) {
+	    MaterialRoad materialRoad = roadAddReq.getMaterialRoad();
+	    this.save(materialRoad);
+        RoadAddRes roadAddRes = new RoadAddRes();
+        roadAddRes.setMaterialRoad(materialRoad);
+        roadAddRes.setRetCode(0);
+        roadAddRes.setRetMsg("");
+        return roadAddRes;
     }
 }

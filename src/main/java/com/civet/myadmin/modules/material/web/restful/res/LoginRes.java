@@ -1,16 +1,15 @@
 package com.civet.myadmin.modules.material.web.restful.res;
 
-import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
-import org.apache.shiro.subject.Subject;
+import com.civet.myadmin.modules.material.web.restful.LoginUser;
 
 public class LoginRes extends BaseRes{
-    private Subject subject;
+    private LoginUser loginUser;
 
-    public Subject getSubject() {
-        return subject;
+    public LoginUser getLoginUser() {
+        return loginUser;
     }
 
-    public void setSubject(Subject subject) {
-        this.subject = subject;
+    public void setLoginUser(LoginUser loginUser) {
+        this.loginUser = loginUser;
     }
 }
