@@ -41,7 +41,7 @@ public class WebPostController extends BaseController {
 	@Autowired
 	private MaterialTypeService materialTypeService;
 
-	@RequestMapping(value = "")
+	@RequestMapping(value = "/material")
 	@ResponseBody
 	public BaseRes dispatch(String data) {
         //JSONObject jsonObject = MsgEncodeUtil.msgObjDecode(data);

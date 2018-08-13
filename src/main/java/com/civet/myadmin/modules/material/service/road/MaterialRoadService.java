@@ -48,7 +48,7 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
 
     public RoadListRes roadList() {
 
-		List<MaterialRoad> list = findList(new MaterialRoad());
+		List<MaterialRoad> list = this.findList(new MaterialRoad());
 		RoadListRes roadListRes = new RoadListRes();
 		roadListRes.setRetCode(0);
 		roadListRes.setRetMsg("");
