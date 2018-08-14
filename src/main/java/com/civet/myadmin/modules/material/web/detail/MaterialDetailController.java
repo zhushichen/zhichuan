@@ -86,7 +86,7 @@ public class MaterialDetailController extends BaseController {
     public String save(MaterialDetail materialDetail, Model model, RedirectAttributes redirectAttributes) {
         if (!beanValidator(model, materialDetail)){
             return form(materialDetail, model);
-        }
+    }
 
         int id = materialDetailService.getNextId();
         materialDetail.setName(NAME_PREFIX + id);

@@ -70,18 +70,24 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
             /**
              * 更新操作
              */
-            this.save(materialDetail);
+
         }else{
             /**
              * 新增操作
              */
             materialDetail.setName("H" + getNextId());
-            this.save(materialDetail);
+
         }
         CoordinateRes coordinateRes = new CoordinateRes();
-        coordinateRes.setRetCode(0);
-        coordinateRes.setRetMsg("");
-        coordinateRes.setMaterialDetail(materialDetail);
+        try{
+            this.save(materialDetail);
+            coordinateRes.setRetCode(0);
+            coordinateRes.setRetMsg("");
+            coordinateRes.setMaterialDetail(materialDetail);
+        }catch (Exception e){
+            coordinateRes.setRetCode(999);
+            coordinateRes.setRetMsg(e.getMessage());
+        }
         return coordinateRes;
     }
 

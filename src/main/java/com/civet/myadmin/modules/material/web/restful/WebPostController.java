@@ -4,6 +4,7 @@
 package com.civet.myadmin.modules.material.web.restful;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.civet.myadmin.common.web.BaseController;
 import com.civet.myadmin.modules.material.service.detail.MaterialDetailService;
@@ -48,7 +49,13 @@ public class WebPostController extends BaseController {
         /**
          * 本地测试用
          */
-        JSONObject jsonObject = JSON.parseObject(data);
+        JSONObject jsonObject;
+        try{
+            jsonObject = JSON.parseObject(data);
+        }catch (JSONException e){
+            BaseRes res = new BaseRes(806, "参数不符合Json格式");
+            return res;
+        }
         logger.info("请求消息：" + jsonObject.toJSONString());
 
         /**
@@ -69,7 +76,7 @@ public class WebPostController extends BaseController {
                 LoginReq loginReq = JSONObject.toJavaObject(jsonObject, LoginReq.class);
                 return loginUserManger.login(loginReq);
             } else{
-                BaseRes baseRes = new BaseRes(802, "该接口不存在");
+                BaseRes baseRes = new BaseRes(805, "该接口需要token");
                 return baseRes;
             }
         } else {

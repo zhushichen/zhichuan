@@ -61,11 +61,17 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
     @Transactional(readOnly = false)
     public BaseRes roadSave(RoadAddReq roadAddReq) {
         MaterialRoad materialRoad = roadAddReq.getMaterialRoad();
-        this.save(materialRoad);
         RoadAddRes roadAddRes = new RoadAddRes();
-        roadAddRes.setMaterialRoad(materialRoad);
-        roadAddRes.setRetCode(0);
-        roadAddRes.setRetMsg("");
+
+        try{
+            this.save(materialRoad);
+            roadAddRes.setMaterialRoad(materialRoad);
+            roadAddRes.setRetCode(0);
+            roadAddRes.setRetMsg("");
+        }catch (Exception e){
+            roadAddRes.setRetCode(999);
+            roadAddRes.setRetMsg(e.getMessage());
+        }
         return roadAddRes;
     }
 }
