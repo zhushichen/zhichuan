@@ -151,7 +151,7 @@
         <include refid="materialDetailColumns"/>
         FROM material_detail a
         <include refid="materialDetailJoins"/>
-        WHERE a.road = #{roadId} and a.del_flag = #{DEL_FLAG_NORMAL}
+        WHERE a.road = #{roadId} and a.del_flag = 0
 
     </select>
 </mapper>

@@ -110,16 +110,23 @@ public class LoginUserManger {
         /**
          * -1 避免误删
          */
-        int id = -1;
-        synchronized (tokenMap) {
-            LoginUser user = tokenMap.remove(token);
-            id = user.getId();
+        LoginUser user = tokenMap.get(token);
+        if(user == null){
+            BaseRes baseRes = new BaseRes(990, "token失效");
+            return baseRes;
+        }else{
+            synchronized (tokenMap) {
+                tokenMap.remove(token);
+            }
+            synchronized (idMap) {
+                idMap.remove(user.getId());
+            }
+            BaseRes baseRes = new BaseRes(0, "");
+            return baseRes;
         }
-        synchronized (idMap) {
-            idMap.remove(id);
-        }
+    }
 
-        BaseRes baseRes = new BaseRes(0, "");
-        return baseRes;
+    public LoginUser getUser(String token){
+        return tokenMap.get(token);
     }
 }
