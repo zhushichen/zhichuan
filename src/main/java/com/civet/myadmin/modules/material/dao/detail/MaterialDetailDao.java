@@ -10,14 +10,12 @@ import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 import java.util.List;
 
 /**
- * 物料类型DAO接口
+ * 物料详细信息DAO接口
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @MyBatisDao
 public interface MaterialDetailDao extends CrudDao<MaterialDetail> {
-
     int getNextId();
-
     List<MaterialDetail> CoordinatesPerRoad(int roadId);
 }

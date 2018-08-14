@@ -2,7 +2,7 @@
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>物料信息管理</title>
+	<title>物料详细信息管理</title>
 	<meta name="decorator" content="default"/>
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -27,35 +27,36 @@
 </head>
 <body>
 	<ul class="nav nav-tabs">
-		<li><a href="${ctx}/material/detail/materialDetail/">物料信息列表</a></li>
-		<li class="active"><a href="${ctx}/material/detail/materialDetail/form?id=${materialDetail.id}">物料信息<shiro:hasPermission name="material:detail:materialDetail:edit">${not empty materialDetail.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="material:detail:materialDetail:edit">查看</shiro:lacksPermission></a></li>
+		<li><a href="${ctx}/material/detail/materialDetail/">物料详细信息列表</a></li>
+		<li class="active"><a href="${ctx}/material/detail/materialDetail/form?id=${materialDetail.id}">物料详细信息<shiro:hasPermission name="material:detail:materialDetail:edit">${not empty materialDetail.id?'修改':'添加'}</shiro:hasPermission><shiro:lacksPermission name="material:detail:materialDetail:edit">查看</shiro:lacksPermission></a></li>
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="materialDetail" action="${ctx}/material/detail/materialDetail/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<%--<div class="control-group">--%>
-			<%--<label class="control-label">物料名字：</label>--%>
-			<%--<div class="controls">--%>
-				<%--<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
-			<%--</div>--%>
-		<%--</div>--%>
+		<div class="control-group">
+			<label class="control-label">物料名字：</label>
+			<div class="controls">
+				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">线路标识：</label>
 			<div class="controls">
-				<form:select path="road" class="input-xlarge required">
-					<form:option value="" label="---请选择路线---"/>
-					<form:options items="${materialRoadMap}"  htmlEscape="false" />
-				</form:select>
+                <form:select path="road" class="input-xlarge required">
+                    <form:option value="" label="---请选择路线---"/>
+                    <form:options items="${materialRoadMap}"  htmlEscape="false" />
+                </form:select>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label">物料类型code：</label>
 			<div class="controls">
-				<form:select path="materialTypeCode" class="input-xlarge required">
-					<form:option value="" label="---请选择物料类型---"/>
-					<form:options items="${materialTypeMap}"  htmlEscape="false" />
-				</form:select>
+                <form:select path="materialTypeId" class="input-xlarge required">
+                    <form:option value="" label="---请选择物料类型---"/>
+                    <form:options items="${materialTypeMap}"  htmlEscape="false" />
+                </form:select>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">
@@ -73,8 +74,8 @@
 		<div class="control-group">
 			<label class="control-label">图片路径：</label>
 			<div class="controls">
-				<form:hidden path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-				<sys:ckfinder input="picturePath" type="thumb" uploadPath="/material/detail"/>
+                <form:hidden path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge"/>
+                <sys:ckfinder input="picturePath" type="thumb" uploadPath="/material/detail"/>
 			</div>
 		</div>
 		<div class="form-actions">

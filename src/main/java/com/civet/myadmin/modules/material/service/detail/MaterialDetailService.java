@@ -5,15 +5,12 @@ package com.civet.myadmin.modules.material.service.detail;
 
 import java.util.List;
 
-import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
 import com.civet.myadmin.modules.material.web.restful.req.CoordinateReq;
 import com.civet.myadmin.modules.material.web.restful.req.CoordinatesDeleteReq;
 import com.civet.myadmin.modules.material.web.restful.req.CoordinatesDetailReq;
-import com.civet.myadmin.modules.material.web.restful.req.CoordinatesPerRoadReq;
 import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
 import com.civet.myadmin.modules.material.web.restful.res.CoordinateRes;
 import com.civet.myadmin.modules.material.web.restful.res.CoordinatesPerRoadRes;
-import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,9 +20,9 @@ import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 import com.civet.myadmin.modules.material.dao.detail.MaterialDetailDao;
 
 /**
- * 物料类型Service
+ * 物料详细信息Service
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @Service
 @Transactional(readOnly = true)
@@ -54,7 +51,7 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
 	}
 
     public int getNextId() {
-		return dao.getNextId() + 1;
+        return dao.getNextId() + 1;
     }
 
     public BaseRes CoordinatesPerRoad(int roadId) {
@@ -68,8 +65,8 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
 
     @Transactional(readOnly = false)
     public BaseRes saveCoordinate(CoordinateReq coordinateReq) {
-	    MaterialDetail materialDetail = coordinateReq.getMaterialDetail();
-	    if(materialDetail.getId() != null){
+        MaterialDetail materialDetail = coordinateReq.getMaterialDetail();
+        if(materialDetail.getId() != null){
             /**
              * 更新操作
              */
@@ -82,29 +79,29 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
             this.save(materialDetail);
         }
         CoordinateRes coordinateRes = new CoordinateRes();
-	    coordinateRes.setRetCode(0);
-	    coordinateRes.setRetMsg("");
-	    coordinateRes.setMaterialDetail(materialDetail);
-	    return coordinateRes;
+        coordinateRes.setRetCode(0);
+        coordinateRes.setRetMsg("");
+        coordinateRes.setMaterialDetail(materialDetail);
+        return coordinateRes;
     }
 
     @Transactional(readOnly = false)
     public BaseRes deleteCoordinate(CoordinatesDeleteReq coordinateReq) {
-		int id = coordinateReq.getId();
-		MaterialDetail materialDetail = new MaterialDetail();
-		materialDetail.setId(id);
-		this.delete(materialDetail);
-		BaseRes res = new BaseRes(0, "");
-		return res;
-	}
+        int id = coordinateReq.getId();
+        MaterialDetail materialDetail = new MaterialDetail();
+        materialDetail.setId(id);
+        this.delete(materialDetail);
+        BaseRes res = new BaseRes(0, "");
+        return res;
+    }
 
     public BaseRes getCoordinate(CoordinatesDetailReq coordinateReq) {
-	    int id = coordinateReq.getId();
-	    CoordinateRes coordinateRes = new CoordinateRes();
-	    coordinateRes.setRetCode(0);
-	    coordinateRes.setRetMsg("");
-	    MaterialDetail materialDetail = this.get(id);
-	    coordinateRes.setMaterialDetail(materialDetail);
-	    return coordinateRes;
+        int id = coordinateReq.getId();
+        CoordinateRes coordinateRes = new CoordinateRes();
+        coordinateRes.setRetCode(0);
+        coordinateRes.setRetMsg("");
+        MaterialDetail materialDetail = this.get(id);
+        coordinateRes.setMaterialDetail(materialDetail);
+        return coordinateRes;
     }
 }

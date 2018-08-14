@@ -6,10 +6,15 @@
 		a.id AS "id",
 		a.name AS "name",
 		a.road AS "road",
-		a.material_type_code AS "materialTypeCode",
+		a.material_type_id AS "materialTypeId",
 		a.longitude AS "longitude",
 		a.latitude AS "latitude",
-		a.picture_path AS "picturePath"
+		a.picture_path AS "picturePath",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="materialDetailJoins">
@@ -22,14 +27,6 @@
 		<include refid="materialDetailJoins"/>
 		WHERE a.id = #{id}
 	</select>
-
-	<select id="getNextId" resultType="int">
-		SELECT
-		max(id)
-		FROM material_detail a
-		<include refid="materialDetailJoins"/>
-
-	</select>
 	
 	<select id="findList" resultType="MaterialDetail">
 		SELECT 
@@ -37,7 +34,7 @@
 		FROM material_detail a
 		<include refid="materialDetailJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 			<if test="id != null and id != ''">
 				AND a.id = #{id}
 			</if>
@@ -62,7 +59,7 @@
 		FROM material_detail a
 		<include refid="materialDetailJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -73,33 +70,34 @@
 			</otherwise>
 		</choose>
 	</select>
-
-	<select id="CoordinatesPerRoad" resultType="MaterialDetail">
-		SELECT
-		<include refid="materialDetailColumns"/>
-		FROM material_detail a
-		<include refid="materialDetailJoins"/>
-		WHERE a.road = #{roadId}
-
-	</select>
-
+	
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO material_detail(
 			id,
 			name,
 			road,
-			material_type_code,
+			material_type_id,
 			longitude,
 			latitude,
-			picture_path
+			picture_path,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
 		) VALUES (
 			#{id},
 			#{name},
 			#{road},
-			#{materialTypeCode},
+			#{materialTypeId},
 			#{longitude},
 			#{latitude},
-			#{picturePath}
+			#{picturePath},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
 		)
 	</insert>
 	
@@ -112,8 +110,8 @@
             <if test="road != null">
                 road = #{road},
             </if>
-            <if test="materialTypeCode != null">
-                material_type_code = #{materialTypeCode},
+            <if test="materialTypeId != null">
+                material_type_id = #{materialTypeId},
             </if>
             <if test="longitude != null">
                 longitude = #{longitude},
@@ -124,13 +122,36 @@
             <if test="picturePath != null">
                 picture_path = #{picturePath},
             </if>
+            <if test="updateBy != null and updateBy.id != null">
+                update_by = #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
         </set>
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
-		DELETE FROM material_detail
+		UPDATE material_detail SET 
+			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
-	
+
+    <select id="getNextId" resultType="int">
+        SELECT
+        max(id)
+        FROM material_detail a
+        <include refid="materialDetailJoins"/>
+
+    </select>
+
+    <select id="CoordinatesPerRoad" resultType="MaterialDetail">
+        SELECT
+        <include refid="materialDetailColumns"/>
+        FROM material_detail a
+        <include refid="materialDetailJoins"/>
+        WHERE a.road = #{roadId} and a.del_flag = #{DEL_FLAG_NORMAL}
+
+    </select>
 </mapper>
