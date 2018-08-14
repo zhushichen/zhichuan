@@ -4,10 +4,16 @@
     
 	<sql id="materialTypeColumns">
 		a.id AS "id",
-		a.code AS "code",
-		a.detail AS "detail",
+		a.name AS "name",
 		a.origin AS "origin",
-		a.remark AS "remark"
+		a.model AS "model",
+		a.amount AS "amount",
+		a.remark AS "remark",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="materialTypeJoins">
@@ -20,28 +26,17 @@
 		<include refid="materialTypeJoins"/>
 		WHERE a.id = #{id}
 	</select>
-
-	<select id="getFromCode" resultType="MaterialType">
-		SELECT
-		<include refid="materialTypeColumns"/>
-		FROM material_type a
-		<include refid="materialTypeJoins"/>
-		WHERE a.code = #{code}
-	</select>
-
-
+	
 	<select id="findList" resultType="MaterialType">
 		SELECT 
 			<include refid="materialTypeColumns"/>
 		FROM material_type a
 		<include refid="materialTypeJoins"/>
 		<where>
-			
-			<if test="id != null and id != ''">
-				AND a.id = #{id}
-			</if>
-			<if test="code != null and code != ''">
-				AND a.code = #{code}
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					concat('%',#{name},'%')
 			</if>
 		</where>
 		<choose>
@@ -60,7 +55,7 @@
 		FROM material_type a
 		<include refid="materialTypeJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -75,40 +70,62 @@
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO material_type(
 			id,
-			code,
-			detail,
+			name,
 			origin,
-			remark
+			model,
+			amount,
+			remark,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
 		) VALUES (
 			#{id},
-			#{code},
-			#{detail},
+			#{name},
 			#{origin},
-			#{remark}
+			#{model},
+			#{amount},
+			#{remark},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
 		)
 	</insert>
 	
 	<update id="update">
 		UPDATE material_type
 		<set>
-            <if test="code != null">
-                code = #{code},
-            </if>
-            <if test="detail != null">
-                detail = #{detail},
+            <if test="name != null">
+                name = #{name},
             </if>
             <if test="origin != null">
                 origin = #{origin},
             </if>
+            <if test="model != null">
+                model = #{model},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
             <if test="remark != null">
                 remark = #{remark},
+            </if>
+            <if test="updateBy != null and updateBy.id != null">
+                update_by = #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
             </if>
         </set>
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
-		DELETE FROM material_type
+		UPDATE material_type SET 
+			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
 	

@@ -34,16 +34,9 @@
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
 		<div class="control-group">
-			<label class="control-label">代码：</label>
-			<div class="controls">
-				<form:input path="code" htmlEscape="false" maxlength="3" class="input-xlarge required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
 			<label class="control-label">描述：</label>
 			<div class="controls">
-				<form:input path="detail" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -51,6 +44,20 @@
 			<label class="control-label">厂家：</label>
 			<div class="controls">
 				<form:input path="origin" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">型号：</label>
+			<div class="controls">
+				<form:input path="model" htmlEscape="false" maxlength="255" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">数量：</label>
+			<div class="controls">
+				<form:input path="amount" htmlEscape="false" maxlength="11" class="input-xlarge required digits"/>
+				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
 		<div class="control-group">

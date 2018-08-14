@@ -25,11 +25,8 @@
 		<input id="pageNo" name="pageNo" type="hidden" value="${page.pageNo}"/>
 		<input id="pageSize" name="pageSize" type="hidden" value="${page.pageSize}"/>
 		<ul class="ul-form">
-			<li><label>id：</label>
-				<form:input path="id" htmlEscape="false" maxlength="11" class="input-medium"/>
-			</li>
-			<li><label>代码：</label>
-				<form:input path="code" htmlEscape="false" maxlength="3" class="input-medium"/>
+			<li><label>描述：</label>
+				<form:input path="name" htmlEscape="false" maxlength="255" class="input-medium"/>
 			</li>
 			<li class="btns"><input id="btnSubmit" class="btn btn-primary" type="submit" value="查询"/></li>
 			<li class="clearfix"></li>
@@ -39,10 +36,12 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>代码</th>
 				<th>描述</th>
 				<th>厂家</th>
+				<th>型号</th>
+				<th>数量</th>
 				<th>备注</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="material:type:materialType:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -50,16 +49,22 @@
 		<c:forEach items="${page.list}" var="materialType">
 			<tr>
 				<td><a href="${ctx}/material/type/materialType/form?id=${materialType.id}">
-					${materialType.code}
+					${materialType.name}
 				</a></td>
-				<td>
-					${materialType.detail}
-				</td>
 				<td>
 					${materialType.origin}
 				</td>
 				<td>
+					${materialType.model}
+				</td>
+				<td>
+					${materialType.amount}
+				</td>
+				<td>
 					${materialType.remark}
+				</td>
+				<td>
+					<fmt:formatDate value="${materialType.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="material:type:materialType:edit"><td>
     				<a href="${ctx}/material/type/materialType/form?id=${materialType.id}">修改</a>

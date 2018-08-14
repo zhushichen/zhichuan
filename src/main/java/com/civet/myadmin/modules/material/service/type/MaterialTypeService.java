@@ -5,9 +5,7 @@ package com.civet.myadmin.modules.material.service.type;
 
 import java.util.List;
 
-import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
 import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
-import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
 import com.civet.myadmin.modules.material.web.restful.res.TypeListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +18,7 @@ import com.civet.myadmin.modules.material.dao.type.MaterialTypeDao;
 /**
  * 物料类型Service
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @Service
 @Transactional(readOnly = true)
@@ -29,11 +27,7 @@ public class MaterialTypeService extends CrudService<MaterialTypeDao, MaterialTy
 	public MaterialType get(Integer id) {
 		return super.get(id);
 	}
-
-	public MaterialType getFromCode(String code){
-		return dao.getFromCode(code);
-	}
-
+	
 	public List<MaterialType> findList(MaterialType materialType) {
 		return super.findList(materialType);
 	}
@@ -51,13 +45,12 @@ public class MaterialTypeService extends CrudService<MaterialTypeDao, MaterialTy
 	public void delete(MaterialType materialType) {
 		super.delete(materialType);
 	}
-
-    public BaseRes typeList() {
+	
+	public BaseRes typeList() {
         List<MaterialType> list = this.findList(new MaterialType());
         TypeListRes typeListRes = new TypeListRes();
         typeListRes.setRetCode(0);
         typeListRes.setRetMsg("");
         typeListRes.setList(list);
         return typeListRes;
-    }
-}
+    }}

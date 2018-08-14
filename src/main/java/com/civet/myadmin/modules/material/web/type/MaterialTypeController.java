@@ -25,7 +25,7 @@ import com.civet.myadmin.modules.material.service.type.MaterialTypeService;
 /**
  * 物料类型Controller
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @Controller
 @RequestMapping(value = "${adminPath}/material/type/materialType")
@@ -57,13 +57,6 @@ public class MaterialTypeController extends BaseController {
 	public String save(MaterialType materialType, Model model, RedirectAttributes redirectAttributes) {
 		if (!beanValidator(model, materialType)){
 			return form(materialType, model);
-		}
-
-		String code = materialType.getCode();
-		MaterialType m = materialTypeService.getFromCode(code);
-		if(m != null){
-			addMessage(redirectAttributes, "保存失败!!!该物料类型已存在");
-			return "redirect:"+Global.getAdminPath()+"/material/type/materialType/?repage";
 		}
 		materialTypeService.save(materialType);
 		addMessage(redirectAttributes, "保存物料类型成功");

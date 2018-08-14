@@ -10,10 +10,9 @@ import com.civet.myadmin.modules.material.entity.type.MaterialType;
 /**
  * 物料类型DAO接口
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @MyBatisDao
 public interface MaterialTypeDao extends CrudDao<MaterialType> {
-    public MaterialType getFromCode(String code);
-
+	
 }

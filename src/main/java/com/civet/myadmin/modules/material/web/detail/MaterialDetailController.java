@@ -63,14 +63,14 @@ public class MaterialDetailController extends BaseController {
             materialDetail = materialDetailService.get(materialDetail.getId());
         }
 
-        List<MaterialType> materialTypes = materialTypeService.findList(null);
+        List<MaterialType> materialTypes = materialTypeService.findList(new MaterialType());
         HashMap<Integer,String> typeMap = new HashMap<>();
         for(MaterialType materialType:materialTypes){
-            typeMap.put(materialType.getId(),materialType.getDetail());
+            typeMap.put(materialType.getId(),materialType.getName());
         }
 
         HashMap<Integer,String> roadMap = new HashMap<>();
-        List<MaterialRoad> materialRoads = materialRoadService.findList(null);
+        List<MaterialRoad> materialRoads = materialRoadService.findList(new MaterialRoad());
         for(MaterialRoad materialRoad : materialRoads){
             roadMap.put(materialRoad.getId(), materialRoad.getName());
         }
