@@ -10,7 +10,7 @@ import com.civet.myadmin.common.persistence.DataEntity;
 /**
  * 路线Entity
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 public class MaterialRoad extends DataEntity<MaterialRoad> {
 	

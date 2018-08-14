@@ -6,7 +6,6 @@ package com.civet.myadmin.modules.material.service.road;
 import java.util.List;
 
 import com.civet.myadmin.modules.material.web.restful.req.RoadAddReq;
-import com.civet.myadmin.modules.material.web.restful.req.RoadListReq;
 import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
 import com.civet.myadmin.modules.material.web.restful.res.RoadAddRes;
 import com.civet.myadmin.modules.material.web.restful.res.RoadListRes;
@@ -21,7 +20,7 @@ import com.civet.myadmin.modules.material.dao.road.MaterialRoadDao;
 /**
  * 路线Service
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @Service
 @Transactional(readOnly = true)
@@ -51,18 +50,18 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
 
     public RoadListRes roadList() {
 
-		List<MaterialRoad> list = this.findList(new MaterialRoad());
-		RoadListRes roadListRes = new RoadListRes();
-		roadListRes.setRetCode(0);
-		roadListRes.setRetMsg("");
-		roadListRes.setRoad(list);
-		return roadListRes;
+        List<MaterialRoad> list = this.findList(new MaterialRoad());
+        RoadListRes roadListRes = new RoadListRes();
+        roadListRes.setRetCode(0);
+        roadListRes.setRetMsg("");
+        roadListRes.setRoad(list);
+        return roadListRes;
     }
 
     @Transactional(readOnly = false)
     public BaseRes roadSave(RoadAddReq roadAddReq) {
-	    MaterialRoad materialRoad = roadAddReq.getMaterialRoad();
-	    this.save(materialRoad);
+        MaterialRoad materialRoad = roadAddReq.getMaterialRoad();
+        this.save(materialRoad);
         RoadAddRes roadAddRes = new RoadAddRes();
         roadAddRes.setMaterialRoad(materialRoad);
         roadAddRes.setRetCode(0);

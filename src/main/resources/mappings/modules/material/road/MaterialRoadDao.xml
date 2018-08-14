@@ -5,7 +5,12 @@
 	<sql id="materialRoadColumns">
 		a.id AS "id",
 		a.name AS "name",
-		a.remark AS "remark"
+		a.remark AS "remark",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="materialRoadJoins">
@@ -25,7 +30,7 @@
 		FROM material_road a
 		<include refid="materialRoadJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 			<if test="id != null and id != ''">
 				AND a.id = #{id}
 			</if>
@@ -50,7 +55,7 @@
 		FROM material_road a
 		<include refid="materialRoadJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -66,11 +71,21 @@
 		INSERT INTO material_road(
 			id,
 			name,
-			remark
+			remark,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
 		) VALUES (
 			#{id},
 			#{name},
-			#{remark}
+			#{remark},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
 		)
 	</insert>
 	
@@ -83,12 +98,19 @@
             <if test="remark != null">
                 remark = #{remark},
             </if>
+            <if test="updateBy != null and updateBy.id != null">
+                update_by = #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
         </set>
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
-		DELETE FROM material_road
+		UPDATE material_road SET 
+			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
 	

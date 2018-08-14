@@ -42,6 +42,7 @@
 				<th>id</th>
 				<th>线路名字</th>
 				<th>备注</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="material:road:materialRoad:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -56,6 +57,9 @@
 				</td>
 				<td>
 					${materialRoad.remark}
+				</td>
+				<td>
+					<fmt:formatDate value="${materialRoad.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="material:road:materialRoad:edit"><td>
     				<a href="${ctx}/material/road/materialRoad/form?id=${materialRoad.id}">修改</a>

@@ -10,7 +10,7 @@ import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
 /**
  * 路线DAO接口
  * @author likai
- * @version 2018-08-08
+ * @version 2018-08-14
  */
 @MyBatisDao
 public interface MaterialRoadDao extends CrudDao<MaterialRoad> {
