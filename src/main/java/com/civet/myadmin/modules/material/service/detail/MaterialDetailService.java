@@ -66,17 +66,11 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
     @Transactional(readOnly = false)
     public BaseRes saveCoordinate(CoordinateReq coordinateReq) {
         MaterialDetail materialDetail = coordinateReq.getMaterialDetail();
-        if(materialDetail.getId() != null){
-            /**
-             * 更新操作
-             */
-
-        }else{
+        if(materialDetail.getId() == null){
             /**
              * 新增操作
              */
             materialDetail.setName("H" + getNextId());
-
         }
         CoordinateRes coordinateRes = new CoordinateRes();
         try{
