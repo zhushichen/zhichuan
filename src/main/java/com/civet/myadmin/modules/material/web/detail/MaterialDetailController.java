@@ -83,8 +83,11 @@ public class MaterialDetailController extends BaseController {
             return form(materialDetail, model);
     }
 
-        int id = materialDetailService.getNextId();
-        materialDetail.setName(NAME_PREFIX + id);
+        if(materialDetail.getId() == null){
+            int id = materialDetailService.getNextId();
+            materialDetail.setName(NAME_PREFIX + id);
+        }
+
         materialDetailService.save(materialDetail);
         addMessage(redirectAttributes, "保存物料信息成功");
         return "redirect:"+Global.getAdminPath()+"/material/detail/materialDetail/?repage";

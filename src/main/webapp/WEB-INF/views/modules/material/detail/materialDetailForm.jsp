@@ -33,12 +33,12 @@
 	<form:form id="inputForm" modelAttribute="materialDetail" action="${ctx}/material/detail/materialDetail/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
 		<sys:message content="${message}"/>		
-		<div class="control-group">
-			<label class="control-label">物料名字：</label>
-			<div class="controls">
-				<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
-			</div>
-		</div>
+		<%--<div class="control-group">--%>
+			<%--<label class="control-label">物料名字：</label>--%>
+			<%--<div class="controls">--%>
+				<%--<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
+			<%--</div>--%>
+		<%--</div>--%>
 		<div class="control-group">
 			<label class="control-label">线路标识：</label>
 			<div class="controls">
