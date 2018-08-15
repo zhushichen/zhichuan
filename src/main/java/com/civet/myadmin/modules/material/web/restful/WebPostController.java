@@ -52,7 +52,7 @@ public class WebPostController extends BaseController {
 
         try{
             jsonObject = MsgEncodeUtil.msgObjDecode(data);
-            //jsonObject = JSON.parseObject(data);
+            //jsonObject = JSONObject.parseObject(data);
         }catch (JSONException e){
             BaseRes res = new BaseRes(806, "参数不符合Json格式");
             return res;

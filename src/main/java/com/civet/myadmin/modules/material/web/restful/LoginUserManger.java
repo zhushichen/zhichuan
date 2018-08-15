@@ -3,10 +3,13 @@ package com.civet.myadmin.modules.material.web.restful;
 import com.civet.myadmin.modules.material.web.restful.req.LoginReq;
 import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
 import com.civet.myadmin.modules.material.web.restful.res.LoginRes;
+import com.civet.myadmin.modules.sys.entity.User;
 import com.civet.myadmin.modules.sys.security.SystemAuthorizingRealm;
 import com.civet.myadmin.modules.sys.security.UsernamePasswordToken;
+import com.civet.myadmin.modules.sys.service.SystemService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sun.misc.BASE64Encoder;
 
@@ -18,6 +21,10 @@ import java.util.Random;
 
 @Service
 public class LoginUserManger {
+
+    @Autowired
+    private SystemService systemService;
+
     private  HashMap<String, LoginUser> tokenMap = new HashMap<>();
     private  HashMap<Integer, LoginUser> idMap = new HashMap<>();
 
@@ -58,7 +65,6 @@ public class LoginUserManger {
                         tokenMap.remove(loginUser.getToken());
                     }
                 }
-
                 LoginUser newLoginUser = new LoginUser();
                 newLoginUser.setId(userId);
 
@@ -68,6 +74,9 @@ public class LoginUserManger {
                 Date loginDate = new Date();
                 newLoginUser.setLoginDate(loginDate);
                 newLoginUser.setActiveTime(loginDate);
+
+                User user = systemService.getUserByLoginName(username);
+                newLoginUser.setPhoto(user.getPhoto());
                 newLoginUser.setUserName(principal.getLoginName());
                 synchronized(tokenMap){
                     tokenMap.put(app_token, newLoginUser);
