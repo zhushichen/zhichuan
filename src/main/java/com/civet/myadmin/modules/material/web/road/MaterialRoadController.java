@@ -3,24 +3,20 @@
  */
 package com.civet.myadmin.modules.material.web.road;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.civet.myadmin.common.config.Global;
+import com.civet.myadmin.common.persistence.Page;
+import com.civet.myadmin.common.web.BaseController;
+import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
+import com.civet.myadmin.modules.material.service.road.MaterialRoadService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.civet.myadmin.common.config.Global;
-import com.civet.myadmin.common.persistence.Page;
-import com.civet.myadmin.common.web.BaseController;
-import com.civet.myadmin.common.utils.StringUtils;
-import com.civet.myadmin.modules.material.entity.road.MaterialRoad;
-import com.civet.myadmin.modules.material.service.road.MaterialRoadService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 路线Controller

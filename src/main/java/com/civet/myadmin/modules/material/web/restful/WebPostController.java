@@ -3,7 +3,6 @@
  */
 package com.civet.myadmin.modules.material.web.restful;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.civet.myadmin.common.web.BaseController;
@@ -42,16 +41,18 @@ public class WebPostController extends BaseController {
     @RequestMapping(value = "/material")
     @ResponseBody
     public BaseRes dispatch(String data) {
+        JSONObject jsonObject;
         /**
          * app用，base64解密
          */
-        //JSONObject jsonObject = MsgEncodeUtil.msgObjDecode(data);
+
         /**
          * 本地测试用
          */
-        JSONObject jsonObject;
+
         try{
-            jsonObject = JSON.parseObject(data);
+            jsonObject = MsgEncodeUtil.msgObjDecode(data);
+            //jsonObject = JSON.parseObject(data);
         }catch (JSONException e){
             BaseRes res = new BaseRes(806, "参数不符合Json格式");
             return res;
