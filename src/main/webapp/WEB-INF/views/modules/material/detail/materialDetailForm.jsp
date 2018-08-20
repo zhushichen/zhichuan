@@ -75,7 +75,7 @@
 			<label class="control-label">图片路径：</label>
 			<div class="controls">
                 <form:hidden path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge"/>
-                <sys:ckfinder input="picturePath" type="thumb" uploadPath="/material/detail"/>
+                <sys:ckfinder input="picturePath" type="images" selectMultiple="true" uploadPath="/material/detail"/>
 			</div>
 		</div>
 		<div class="form-actions">

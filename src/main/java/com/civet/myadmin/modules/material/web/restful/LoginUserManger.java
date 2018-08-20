@@ -56,6 +56,7 @@ public class LoginUserManger {
                 /**
                  * 如果已经登录了，踢掉已登录的
                  */
+                /*
                 LoginUser loginUser = null;
                 synchronized (idMap){
                     loginUser = idMap.remove(userId);
@@ -65,6 +66,7 @@ public class LoginUserManger {
                         tokenMap.remove(loginUser.getToken());
                     }
                 }
+                */
                 LoginUser newLoginUser = new LoginUser();
                 newLoginUser.setId(userId);
 
