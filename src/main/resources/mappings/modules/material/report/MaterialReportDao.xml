@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.civet.myadmin.modules.material.dao.report.MaterialReportDao">
+    
+	<sql id="materialReportColumns">
+		a.id AS "id",
+		a.roadid AS "roadid",
+		a.pointid AS "pointid",
+		a.jointwellnumber AS "jointwellnumber",
+		a.cabletype AS "cabletype",
+		a.cablemanufacturer AS "cablemanufacturer",
+		a.cablelength AS "cablelength",
+		a.attachmenttype AS "attachmenttype",
+		a.attachmentmanufacturer AS "attachmentmanufacturer",
+		a.groundingmode AS "groundingmode"
+	</sql>
+	
+	<sql id="materialReportJoins">
+	</sql>
+    
+	<select id="get" resultType="MaterialReport">
+		SELECT 
+			<include refid="materialReportColumns"/>
+		FROM material_report a
+		<include refid="materialReportJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="MaterialReport">
+		SELECT 
+			<include refid="materialReportColumns"/>
+		FROM material_report a
+		<include refid="materialReportJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			    ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="MaterialReport">
+		SELECT 
+			<include refid="materialReportColumns"/>
+		FROM material_report a
+		<include refid="materialReportJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+                ORDER BY a.id DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO material_report(
+			id,
+			roadid,
+			pointid,
+			jointwellnumber,
+			cabletype,
+			cablemanufacturer,
+			cablelength,
+			attachmenttype,
+			attachmentmanufacturer,
+			groundingmode
+		) VALUES (
+			#{id},
+			#{roadid},
+			#{pointid},
+			#{jointwellnumber},
+			#{cabletype},
+			#{cablemanufacturer},
+			#{cablelength},
+			#{attachmenttype},
+			#{attachmentmanufacturer},
+			#{groundingmode}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE material_report
+		<set>
+            <if test="roadid != null">
+                roadid = #{roadid},
+            </if>
+            <if test="pointid != null">
+                pointid = #{pointid},
+            </if>
+            <if test="jointwellnumber != null">
+                jointwellnumber = #{jointwellnumber},
+            </if>
+            <if test="cabletype != null">
+                cabletype = #{cabletype},
+            </if>
+            <if test="cablemanufacturer != null">
+                cablemanufacturer = #{cablemanufacturer},
+            </if>
+            <if test="cablelength != null">
+                cablelength = #{cablelength},
+            </if>
+            <if test="attachmenttype != null">
+                attachmenttype = #{attachmenttype},
+            </if>
+            <if test="attachmentmanufacturer != null">
+                attachmentmanufacturer = #{attachmentmanufacturer},
+            </if>
+            <if test="groundingmode != null">
+                groundingmode = #{groundingmode},
+            </if>
+        </set>
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM material_report
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

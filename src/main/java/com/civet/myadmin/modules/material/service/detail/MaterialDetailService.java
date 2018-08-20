@@ -104,4 +104,9 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
         coordinateRes.setMaterialDetail(materialDetail);
         return coordinateRes;
     }
+
+    public List<MaterialDetail> getPointByRoad(int roadId) {
+        List<MaterialDetail> list = dao.CoordinatesPerRoad(roadId);
+        return list;
+    }
 }
