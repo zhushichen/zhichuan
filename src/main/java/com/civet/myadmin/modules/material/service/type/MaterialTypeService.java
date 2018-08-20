@@ -5,7 +5,9 @@ package com.civet.myadmin.modules.material.service.type;
 
 import java.util.List;
 
+import com.civet.myadmin.modules.material.web.restful.req.TypeInfoReq;
 import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
+import com.civet.myadmin.modules.material.web.restful.res.TypeInfoRes;
 import com.civet.myadmin.modules.material.web.restful.res.TypeListRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,4 +55,15 @@ public class MaterialTypeService extends CrudService<MaterialTypeDao, MaterialTy
         typeListRes.setRetMsg("");
         typeListRes.setList(list);
         return typeListRes;
-    }}
+    }
+
+    public BaseRes getTypeInfo(TypeInfoReq typeInfoReq) {
+            int id = typeInfoReq.getId();
+            TypeInfoRes typeInfoRes = new TypeInfoRes();
+            typeInfoRes.setRetCode(0);
+            typeInfoRes.setRetMsg("");
+            MaterialType materialType = this.get(id);
+            typeInfoRes.setMaterialType(materialType);
+            return typeInfoRes;
+    }
+}

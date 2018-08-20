@@ -51,8 +51,8 @@ public class WebPostController extends BaseController {
          */
 
         try{
-            jsonObject = MsgEncodeUtil.msgObjDecode(data);
-            //jsonObject = JSONObject.parseObject(data);
+//            jsonObject = MsgEncodeUtil.msgObjDecode(data);
+            jsonObject = JSONObject.parseObject(data);
         }catch (JSONException e){
             BaseRes res = new BaseRes(806, "参数不符合Json格式");
             return res;
@@ -111,6 +111,9 @@ public class WebPostController extends BaseController {
                 return materialDetailService.getCoordinate(coordinateReq);
             } else if ("LoginOut".equals(msgCode)) {
                 return loginUserManger.loginOut(token);
+            } else if ("typeInfo".equals(msgCode)) {
+                TypeInfoReq typeInfoReq = JSONObject.toJavaObject(jsonObject, TypeInfoReq.class);
+                return materialTypeService.getTypeInfo(typeInfoReq);
             } else {
                 BaseRes baseRes = new BaseRes(802, "该接口不存在");
                 return baseRes;
