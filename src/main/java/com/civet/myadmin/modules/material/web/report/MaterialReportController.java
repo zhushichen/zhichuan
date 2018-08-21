@@ -52,7 +52,22 @@ public class MaterialReportController extends BaseController {
 	@RequiresPermissions("material:report:materialReport:view")
 	@RequestMapping(value = {"list", ""})
 	public String list(MaterialReport materialReport, HttpServletRequest request, HttpServletResponse response, Model model) {
-		Page<MaterialReport> page = materialReportService.findPage(new Page<MaterialReport>(request, response), materialReport); 
+		Page<MaterialReport> page = materialReportService.findPage(new Page<MaterialReport>(request, response), materialReport);
+
+		 /*
+        将roadId转为road名字,typeId转为type名字
+         */
+        HashMap<Integer,String> roadMap = new HashMap<>();
+        List<MaterialRoad> materialRoads = materialRoadService.findList(new MaterialRoad());
+        for(MaterialRoad materialRoad : materialRoads){
+            roadMap.put(materialRoad.getId(), materialRoad.getName());
+        }
+
+        List<MaterialReport> materialReports = page.getList();
+        for(MaterialReport m : materialReports){
+            String roadName = roadMap.get(m.getRoadid());
+            m.setRoadName(roadName);
+        }
 		model.addAttribute("page", page);
 		return "modules/material/report/materialReportList";
 	}

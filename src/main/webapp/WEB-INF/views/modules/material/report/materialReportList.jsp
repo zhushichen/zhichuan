@@ -33,7 +33,7 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>线路id</th>
+				<th>线路</th>
 				<th>电缆型号</th>
 				<th>电缆厂家</th>
 				<th>电缆长度</th>
@@ -45,7 +45,7 @@
 		<c:forEach items="${page.list}" var="materialReport">
 			<tr>
 				<td><a href="${ctx}/material/report/materialReport/form?id=${materialReport.id}">
-					${materialReport.roadid}
+					${materialReport.roadName}
 				</a></td>
 				<td>
 					${materialReport.cabletype}

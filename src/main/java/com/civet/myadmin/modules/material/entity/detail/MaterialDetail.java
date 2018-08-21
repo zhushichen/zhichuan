@@ -17,8 +17,28 @@ public class MaterialDetail extends DataEntity<MaterialDetail> {
 
     private static final long serialVersionUID = 1L;
     private String name;		// 物料名字,如H1，H2此类
-    private Long road;		// 线路唯一标识
-    private Long materialTypeId;		// 物料类型code
+    private Integer road;		// 线路唯一标识
+
+    public String getRoadName() {
+        return roadName;
+    }
+
+    public void setRoadName(String roadName) {
+        this.roadName = roadName;
+    }
+
+    private String roadName;
+
+    public String getTypeName() {
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
+    private String typeName;
+    private Integer materialTypeId;		// 物料类型code
     private String longitude;		// 经度
     private String latitude;		// 纬度
     private String picturePath;		// 图片路径
@@ -41,20 +61,20 @@ public class MaterialDetail extends DataEntity<MaterialDetail> {
     }
 
     @NotNull(message="线路唯一标识不能为空")
-    public Long getRoad() {
+    public Integer getRoad() {
         return road;
     }
 
-    public void setRoad(Long road) {
+    public void setRoad(Integer road) {
         this.road = road;
     }
 
     @NotNull(message="物料类型code不能为空")
-    public Long getMaterialTypeId() {
+    public Integer getMaterialTypeId() {
         return materialTypeId;
     }
 
-    public void setMaterialTypeId(Long materialTypeId) {
+    public void setMaterialTypeId(Integer materialTypeId) {
         this.materialTypeId = materialTypeId;
     }
 

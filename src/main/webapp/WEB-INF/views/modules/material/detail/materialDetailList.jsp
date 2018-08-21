@@ -40,8 +40,8 @@
 		<thead>
 			<tr>
 				<th>物料名字</th>
-				<th>线路标识</th>
-				<th>物料类型code</th>
+				<th>线路名称</th>
+				<th>物料类型</th>
 				<th>经度</th>
 				<th>纬度</th>
 				<th>图片路径</th>
@@ -56,10 +56,10 @@
 					${materialDetail.name}
 				</a></td>
 				<td>
-					${materialDetail.road}
+					${materialDetail.roadName}
 				</td>
 				<td>
-					${materialDetail.materialTypeId}
+					${materialDetail.typeName}
 				</td>
 				<td>
 					${materialDetail.longitude}

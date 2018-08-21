@@ -52,7 +52,7 @@ public class MaterialReportService extends CrudService<MaterialReportDao, Materi
         int pointId = reportInfoReq.getPointId();
         try{
             MaterialReport t = new MaterialReport();
-            t.setPointid((long) pointId);
+            t.setPointid(pointId);
             MaterialReport materialReport = dao.getReportByPointId(t);
             reportInfoRes.setMaterialReport(materialReport);
             reportInfoRes.setRetCode(0);

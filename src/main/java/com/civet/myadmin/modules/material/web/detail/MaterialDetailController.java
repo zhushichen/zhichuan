@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 物料详细信息Controller
@@ -47,6 +48,30 @@ public class MaterialDetailController extends BaseController {
     @RequestMapping(value = {"list", ""})
     public String list(MaterialDetail materialDetail, HttpServletRequest request, HttpServletResponse response, Model model) {
         Page<MaterialDetail> page = materialDetailService.findPage(new Page<MaterialDetail>(request, response), materialDetail);
+
+        /*
+        将roadId转为road名字,typeId转为type名字
+         */
+        List<MaterialType> materialTypes = materialTypeService.findList(new MaterialType());
+        HashMap<Integer,String> typeMap = new HashMap<>();
+        for(MaterialType materialType:materialTypes){
+            typeMap.put(materialType.getId(),materialType.getName());
+        }
+
+        HashMap<Integer,String> roadMap = new HashMap<>();
+        List<MaterialRoad> materialRoads = materialRoadService.findList(new MaterialRoad());
+        for(MaterialRoad materialRoad : materialRoads){
+            roadMap.put(materialRoad.getId(), materialRoad.getName());
+        }
+
+        List<MaterialDetail> materialDetails = page.getList();
+        for(MaterialDetail m : materialDetails){
+            String roadName = roadMap.get(m.getRoad());
+            String typeName = typeMap.get(m.getMaterialTypeId());
+            m.setRoadName(roadName);
+            m.setTypeName(typeName);
+        }
+
         model.addAttribute("page", page);
         return "modules/material/detail/materialDetailList";
     }
