@@ -19,7 +19,7 @@ import com.civet.myadmin.modules.material.dao.report.MaterialReportDao;
 /**
  * 台账Service
  * @author likai
- * @version 2018-08-20
+ * @version 2018-08-21
  */
 @Service
 @Transactional(readOnly = true)
@@ -46,15 +46,22 @@ public class MaterialReportService extends CrudService<MaterialReportDao, Materi
 	public void delete(MaterialReport materialReport) {
 		super.delete(materialReport);
 	}
-
+	
     public BaseRes getByPointId(ReportInfoReq reportInfoReq) {
         ReportInfoRes reportInfoRes = new ReportInfoRes();
         int pointId = reportInfoReq.getPointId();
         try{
-            MaterialReport materialReport = dao.getReportByPointId(pointId);
+            MaterialReport t = new MaterialReport();
+            t.setPointid((long) pointId);
+            MaterialReport materialReport = dao.getReportByPointId(t);
             reportInfoRes.setMaterialReport(materialReport);
             reportInfoRes.setRetCode(0);
-            reportInfoRes.setRetMsg("");
+            if(materialReport == null){
+                reportInfoRes.setRetMsg("没有数据");
+            }else{
+                reportInfoRes.setRetMsg("");
+
+            }
         }catch (Exception e){
             reportInfoRes.setRetCode(999);
             reportInfoRes.setRetMsg(e.getMessage());

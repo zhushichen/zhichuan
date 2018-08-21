@@ -12,7 +12,12 @@
 		a.cablelength AS "cablelength",
 		a.attachmenttype AS "attachmenttype",
 		a.attachmentmanufacturer AS "attachmentmanufacturer",
-		a.groundingmode AS "groundingmode"
+		a.groundingmode AS "groundingmode",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
 	</sql>
 	
 	<sql id="materialReportJoins">
@@ -32,7 +37,7 @@
 		FROM material_report a
 		<include refid="materialReportJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -50,7 +55,7 @@
 		FROM material_report a
 		<include refid="materialReportJoins"/>
 		<where>
-			
+			a.del_flag = #{DEL_FLAG_NORMAL}
 		</where>		
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -73,7 +78,12 @@
 			cablelength,
 			attachmenttype,
 			attachmentmanufacturer,
-			groundingmode
+			groundingmode,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
 		) VALUES (
 			#{id},
 			#{roadid},
@@ -84,7 +94,12 @@
 			#{cablelength},
 			#{attachmenttype},
 			#{attachmentmanufacturer},
-			#{groundingmode}
+			#{groundingmode},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
 		)
 	</insert>
 	
@@ -118,25 +133,32 @@
             <if test="groundingmode != null">
                 groundingmode = #{groundingmode},
             </if>
+            <if test="updateBy != null and updateBy.id != null">
+                update_by = #{updateBy.id},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate},
+            </if>
         </set>
 		WHERE id = #{id}
 	</update>
 	
 	<update id="delete">
-		DELETE FROM material_report
+		UPDATE material_report SET 
+			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
 
 
 
-    <!-- 自定义方法 -->
     <select id="getReportByPointId" resultType="MaterialReport">
         SELECT
         <include refid="materialReportColumns"/>
         FROM material_report a
         <include refid="materialReportJoins"/>
         <where>
-              pointId = #{pointId}
+              pointId = #{pointid}
+              AND a.del_flag = #{DEL_FLAG_NORMAL}
         </where>
     </select>
 </mapper>

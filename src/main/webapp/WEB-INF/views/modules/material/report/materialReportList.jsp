@@ -37,6 +37,7 @@
 				<th>电缆型号</th>
 				<th>电缆厂家</th>
 				<th>电缆长度</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="material:report:materialReport:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -54,6 +55,9 @@
 				</td>
 				<td>
 					${materialReport.cablelength}
+				</td>
+				<td>
+					<fmt:formatDate value="${materialReport.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>
 				<shiro:hasPermission name="material:report:materialReport:edit"><td>
     				<a href="${ctx}/material/report/materialReport/form?id=${materialReport.id}">修改</a>

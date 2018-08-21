@@ -11,7 +11,7 @@ import com.civet.myadmin.common.persistence.DataEntity;
 /**
  * 台账Entity
  * @author likai
- * @version 2018-08-20
+ * @version 2018-08-21
  */
 public class MaterialReport extends DataEntity<MaterialReport> {
 	

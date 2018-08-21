@@ -10,9 +10,9 @@ import com.civet.myadmin.modules.material.entity.report.MaterialReport;
 /**
  * 台账DAO接口
  * @author likai
- * @version 2018-08-20
+ * @version 2018-08-21
  */
 @MyBatisDao
 public interface MaterialReportDao extends CrudDao<MaterialReport> {
-	MaterialReport getReportByPointId(int pointId);
+	MaterialReport getReportByPointId(MaterialReport materialReport);
 }
