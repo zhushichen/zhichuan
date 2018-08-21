@@ -102,8 +102,17 @@ public class MaterialReportController extends BaseController {
 		if (!beanValidator(model, materialReport)){
 			return form(materialReport, model);
 		}
-		materialReportService.save(materialReport);
-		addMessage(redirectAttributes, "保存台账成功");
+        /**
+         * 台账去重，保证一个坐标只有一个台账
+         */
+        MaterialReport mp = materialReportService.getReportByPointId(materialReport.getPointid());
+        if(mp != null){
+            addMessage(redirectAttributes, "保存台账失败, 该坐标已有台账");
+        }else{
+            materialReportService.save(materialReport);
+            addMessage(redirectAttributes, "保存台账成功");
+        }
+
 		return "redirect:"+Global.getAdminPath()+"/material/report/materialReport/?repage";
 	}
 	

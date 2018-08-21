@@ -68,4 +68,11 @@ public class MaterialReportService extends CrudService<MaterialReportDao, Materi
         }
         return reportInfoRes;
     }
+
+    public MaterialReport getReportByPointId(Integer pointId) {
+        MaterialReport t = new MaterialReport();
+        t.setPointid(pointId);
+	    return dao.getReportByPointId(t);
+    }
+
 }
