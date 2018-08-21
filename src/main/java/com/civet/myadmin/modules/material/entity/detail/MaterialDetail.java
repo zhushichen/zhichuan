@@ -75,6 +75,10 @@ public class MaterialDetail extends DataEntity<MaterialDetail> {
 		return materialTypeId;
 	}
 
+    public String getStringMaterialTypeId() {
+        return String.valueOf(materialTypeId);
+    }
+
 	public void setMaterialTypeId(Integer materialTypeId) {
 		this.materialTypeId = materialTypeId;
 	}

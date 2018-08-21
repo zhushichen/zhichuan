@@ -3,7 +3,10 @@
  */
 package com.civet.myadmin.modules.material.service.detail;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.civet.myadmin.modules.material.web.restful.req.CoordinateReq;
 import com.civet.myadmin.modules.material.web.restful.req.CoordinatesDeleteReq;
@@ -56,22 +59,17 @@ public class MaterialDetailService extends CrudService<MaterialDetailDao, Materi
 
     public BaseRes CoordinatesPerRoad(int roadId) {
         List<MaterialDetail> list = dao.CoordinatesPerRoad(roadId);
+        Map<String, List<MaterialDetail>> result =  list.stream().collect(Collectors.groupingBy(MaterialDetail::getStringMaterialTypeId));
         CoordinatesPerRoadRes coordinatesPerRoadRes = new CoordinatesPerRoadRes();
         coordinatesPerRoadRes.setRetCode(0);
         coordinatesPerRoadRes.setRetMsg("");
-        coordinatesPerRoadRes.setList(list);
+        coordinatesPerRoadRes.setResult(result);
         return coordinatesPerRoadRes;
     }
 
     @Transactional(readOnly = false)
     public BaseRes saveCoordinate(CoordinateReq coordinateReq) {
         MaterialDetail materialDetail = coordinateReq.getMaterialDetail();
-        if(materialDetail.getId() == null){
-            /**
-             * 新增操作
-             */
-            materialDetail.setName("H" + getNextId());
-        }
         CoordinateRes coordinateRes = new CoordinateRes();
         try{
             this.save(materialDetail);

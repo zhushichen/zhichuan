@@ -3,16 +3,18 @@ package com.civet.myadmin.modules.material.web.restful.res;
 import com.civet.myadmin.modules.material.entity.detail.MaterialDetail;
 
 import java.util.List;
+import java.util.Map;
 
 public class CoordinatesPerRoadRes extends BaseRes {
-    public List<MaterialDetail> getList() {
-        return list;
+
+
+    private Map<String, List<MaterialDetail>> result;
+
+    public Map<String, List<MaterialDetail>> getResult() {
+        return result;
     }
 
-    public void setList(List<MaterialDetail> list) {
-        this.list = list;
+    public void setResult(Map<String, List<MaterialDetail>> result) {
+        this.result = result;
     }
-
-    private List<MaterialDetail> list;
-
 }
