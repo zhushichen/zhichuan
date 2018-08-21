@@ -20,6 +20,16 @@ public class MaterialDetail{
     private String latitude;		// 纬度
     private String picturePath;		// 图片路径
 
+    public Integer getPointorder() {
+        return pointorder;
+    }
+
+    public void setPointorder(Integer pointorder) {
+        this.pointorder = pointorder;
+    }
+
+    private Integer pointorder;		// 序号
+
     protected String remarks;	// 备注
     protected Date createDate;	// 创建日期
     protected Date updateDate;	// 更新日期
