@@ -14,7 +14,8 @@
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		a.pointorder AS "pointorder"
 	</sql>
 	
 	<sql id="materialDetailJoins">
@@ -35,9 +36,6 @@
 		<include refid="materialDetailJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="id != null and id != ''">
-				AND a.id = #{id}
-			</if>
 			<if test="name != null and name != ''">
 				AND a.name LIKE
 					concat('%',#{name},'%')
@@ -84,7 +82,8 @@
 			create_date,
 			update_by,
 			update_date,
-			del_flag
+			del_flag,
+			pointorder
 		) VALUES (
 			#{id},
 			#{name},
@@ -97,7 +96,8 @@
 			#{createDate},
 			#{updateBy.id},
 			#{updateDate},
-			#{delFlag}
+			#{delFlag},
+			#{pointorder}
 		)
 	</insert>
 	
@@ -127,6 +127,9 @@
             </if>
             <if test="updateDate != null">
                 update_date = #{updateDate},
+            </if>
+            <if test="pointorder != null">
+                pointorder = #{pointorder},
             </if>
         </set>
 		WHERE id = #{id}

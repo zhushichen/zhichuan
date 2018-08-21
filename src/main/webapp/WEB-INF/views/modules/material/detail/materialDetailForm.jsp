@@ -32,15 +32,15 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="materialDetail" action="${ctx}/material/detail/materialDetail/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
-		<%--<div class="control-group">--%>
-			<%--<label class="control-label">物料名字：</label>--%>
-			<%--<div class="controls">--%>
-				<%--<form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>--%>
-			<%--</div>--%>
-		<%--</div>--%>
+		<sys:message content="${message}"/>
+        <div class="control-group">
+        <label class="control-label">物料名字：</label>
+        <div class="controls">
+        <form:input path="name" htmlEscape="false" maxlength="255" class="input-xlarge "/>
+        </div>
+        </div>
 		<div class="control-group">
-			<label class="control-label">线路标识：</label>
+			<label class="control-label">线路</label>
 			<div class="controls">
                 <form:select path="road" class="input-xlarge required">
                     <form:option value="" label="---请选择路线---"/>
@@ -73,9 +73,15 @@
 		</div>
 		<div class="control-group">
 			<label class="control-label">图片路径：</label>
-			<div class="controls">
+            <div class="controls">
                 <form:hidden path="picturePath" htmlEscape="false" maxlength="255" class="input-xlarge"/>
                 <sys:ckfinder input="picturePath" type="images" selectMultiple="true" uploadPath="/material/detail"/>
+            </div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">序号：</label>
+			<div class="controls">
+				<form:input path="pointorder" htmlEscape="false" maxlength="11" class="input-xlarge  digits"/>
 			</div>
 		</div>
 		<div class="form-actions">

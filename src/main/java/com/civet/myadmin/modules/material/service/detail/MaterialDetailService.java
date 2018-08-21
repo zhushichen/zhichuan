@@ -22,7 +22,7 @@ import com.civet.myadmin.modules.material.dao.detail.MaterialDetailDao;
 /**
  * 物料详细信息Service
  * @author likai
- * @version 2018-08-14
+ * @version 2018-08-21
  */
 @Service
 @Transactional(readOnly = true)

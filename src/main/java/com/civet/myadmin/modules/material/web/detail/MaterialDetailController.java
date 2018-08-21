@@ -106,11 +106,16 @@ public class MaterialDetailController extends BaseController {
     public String save(MaterialDetail materialDetail, Model model, RedirectAttributes redirectAttributes) {
         if (!beanValidator(model, materialDetail)){
             return form(materialDetail, model);
-    }
+        }
 
+        /**
+         * 生成序号
+         */
         if(materialDetail.getId() == null){
-            int id = materialDetailService.getNextId();
-            materialDetail.setName(NAME_PREFIX + id);
+            if(materialDetail.getPointorder() != null){
+                int id = materialDetailService.getNextId();
+                materialDetail.setPointorder(id * 10);
+            }
         }
 
         materialDetailService.save(materialDetail);

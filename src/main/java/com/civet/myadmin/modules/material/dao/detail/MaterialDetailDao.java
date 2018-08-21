@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * 物料详细信息DAO接口
  * @author likai
- * @version 2018-08-14
+ * @version 2018-08-21
  */
 @MyBatisDao
 public interface MaterialDetailDao extends CrudDao<MaterialDetail> {
