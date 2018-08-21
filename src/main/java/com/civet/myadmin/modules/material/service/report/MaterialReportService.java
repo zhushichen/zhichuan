@@ -5,6 +5,9 @@ package com.civet.myadmin.modules.material.service.report;
 
 import java.util.List;
 
+import com.civet.myadmin.modules.material.web.restful.req.ReportInfoReq;
+import com.civet.myadmin.modules.material.web.restful.res.BaseRes;
+import com.civet.myadmin.modules.material.web.restful.res.ReportInfoRes;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +46,19 @@ public class MaterialReportService extends CrudService<MaterialReportDao, Materi
 	public void delete(MaterialReport materialReport) {
 		super.delete(materialReport);
 	}
-	
+
+    public BaseRes getByPointId(ReportInfoReq reportInfoReq) {
+        ReportInfoRes reportInfoRes = new ReportInfoRes();
+        int pointId = reportInfoReq.getPointId();
+        try{
+            MaterialReport materialReport = dao.getReportByPointId(pointId);
+            reportInfoRes.setMaterialReport(materialReport);
+            reportInfoRes.setRetCode(0);
+            reportInfoRes.setRetMsg("");
+        }catch (Exception e){
+            reportInfoRes.setRetCode(999);
+            reportInfoRes.setRetMsg(e.getMessage());
+        }
+        return reportInfoRes;
+    }
 }

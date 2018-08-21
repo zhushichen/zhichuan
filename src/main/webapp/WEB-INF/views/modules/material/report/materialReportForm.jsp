@@ -38,7 +38,7 @@
                     $(".select2-chosen")[1].innerHTML='';
                     for(var i = 0; i < result.length; i++){
                         var item = result[i];
-                        $("#pointSelect").append("<option value=item['id']>"+item["name"] + "</option>");
+                        $("#pointSelect").append("<option value="+ item['id'] + ">" + item["name"] + "</option>");
                     }
                 },
                 error: function(error){

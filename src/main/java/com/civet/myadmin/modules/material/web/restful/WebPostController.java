@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.civet.myadmin.common.web.BaseController;
 import com.civet.myadmin.modules.material.service.detail.MaterialDetailService;
+import com.civet.myadmin.modules.material.service.report.MaterialReportService;
 import com.civet.myadmin.modules.material.service.road.MaterialRoadService;
 import com.civet.myadmin.modules.material.service.type.MaterialTypeService;
 import com.civet.myadmin.modules.material.web.restful.req.*;
@@ -34,6 +35,9 @@ public class WebPostController extends BaseController {
 
     @Autowired
     private MaterialTypeService materialTypeService;
+
+    @Autowired
+    private MaterialReportService materialReportService;
 
     @Autowired
     private LoginUserManger loginUserManger;
@@ -114,7 +118,10 @@ public class WebPostController extends BaseController {
             } else if ("typeInfo".equals(msgCode)) {
                 TypeInfoReq typeInfoReq = JSONObject.toJavaObject(jsonObject, TypeInfoReq.class);
                 return materialTypeService.getTypeInfo(typeInfoReq);
-            } else {
+            } else if ("reportInfo".equals(msgCode)) {
+                ReportInfoReq reportInfoReq = JSONObject.toJavaObject(jsonObject, ReportInfoReq.class);
+                return materialReportService.getByPointId(reportInfoReq);
+            }else {
                 BaseRes baseRes = new BaseRes(802, "该接口不存在");
                 return baseRes;
             }

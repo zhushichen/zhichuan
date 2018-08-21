@@ -14,5 +14,5 @@ import com.civet.myadmin.modules.material.entity.report.MaterialReport;
  */
 @MyBatisDao
 public interface MaterialReportDao extends CrudDao<MaterialReport> {
-	
+	MaterialReport getReportByPointId(int pointId);
 }

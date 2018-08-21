@@ -126,5 +126,17 @@
 		DELETE FROM material_report
 		WHERE id = #{id}
 	</update>
-	
+
+
+
+    <!-- 自定义方法 -->
+    <select id="getReportByPointId" resultType="MaterialReport">
+        SELECT
+        <include refid="materialReportColumns"/>
+        FROM material_report a
+        <include refid="materialReportJoins"/>
+        <where>
+              pointId = #{pointId}
+        </where>
+    </select>
 </mapper>
