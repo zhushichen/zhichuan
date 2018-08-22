@@ -121,7 +121,10 @@ public class WebPostController extends BaseController {
             } else if ("reportInfo".equals(msgCode)) {
                 ReportInfoReq reportInfoReq = JSONObject.toJavaObject(jsonObject, ReportInfoReq.class);
                 return materialReportService.getByPointId(reportInfoReq);
-            }else {
+            }else if ("getRoadId".equals(msgCode)) {
+                RoadFindidReq roadFindidReq  = JSONObject.toJavaObject(jsonObject, RoadFindidReq.class);
+                return materialRoadService.Findid(roadFindidReq);
+            } else {
                 BaseRes baseRes = new BaseRes(802, "该接口不存在");
                 return baseRes;
             }

@@ -132,4 +132,13 @@ public class MaterialReportController extends BaseController {
 
        return materialDetails;
     }
+
+    @RequestMapping(value = "getRoadId")
+    @ResponseBody
+    public MaterialRoad getRoadId(int roadId) {
+
+        MaterialRoad materialRoad =  materialRoadService.get(roadId);
+
+        return materialRoad;
+    }
 }
