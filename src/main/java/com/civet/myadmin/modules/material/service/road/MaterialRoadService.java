@@ -76,7 +76,7 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
     }
 
     /**、
-     * 根据id获得路线(安卓)
+     * 根据id获得路线
      * @param roadFindidReq
      * @return
      */
