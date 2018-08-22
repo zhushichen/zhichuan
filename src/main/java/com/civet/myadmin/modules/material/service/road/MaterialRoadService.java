@@ -75,6 +75,11 @@ public class MaterialRoadService extends CrudService<MaterialRoadDao, MaterialRo
         return roadAddRes;
     }
 
+    /**、
+     * 根据id获得路线
+     * @param roadFindidReq
+     * @return
+     */
     public BaseRes Findid(RoadFindidReq roadFindidReq) {
         int id = roadFindidReq.getRoId();
         MaterialRoad materialRoad=this.get(id);
